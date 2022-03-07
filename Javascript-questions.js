@@ -713,7 +713,12 @@ gridTraveller(3, 2);
 gridTraveller(4, 3);
 gridTraveller(14, 13);
 
-
+/**
+ * Pass an object to a function, a key and a value in string
+ * and if that key-value is present in it, 
+ * return that object
+ * 
+ */
 
 const obj = {
 	id: 'val1',

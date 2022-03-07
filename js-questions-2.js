@@ -309,6 +309,88 @@ increment(); // 2
 increment(); // 3
 print(); //
 
+/**
+ * 
+ * You're given a two-dimensional array (a matrix) of distinct integers and a
+   target integer. Each row in the matrix is sorted, and each column is also sorted; the
+   matrix doesn't necessarily have the same height and width.
+
+  Write a function that returns an array of the row and column indices of the
+  target integer if it's contained in the matrix, otherwise [-1,-1]
+
+  const input = [
+    [1, 4, 7, 12, 15, 1000], // 0
+    [2, 5, 19, 31, 32, 1001], // 1
+    [3, 8, 24, 33, 35, 1002], // 2
+    [40, 41, 42, 44, 45, 1003], // 3
+    [99, 100, 103, 106, 128, 1004],
+  ] 
+  
+  const target = 99;
+ */
+
+function getRowColumnIndex(input, target) {
+  let i = 0;
+  let j = input[i].length - 1;
+  
+  while (i < input.length && j >= 0 ) {  
+    if (target > input[i][j]) {
+      i++;
+    } else if (target === input[i][j]) {
+      return [i, j];
+    } else {
+      j--;
+    }
+  }
+  return [-1, -1];
+}
+
+console.log(getRowColumnIndex([
+  [1, 4, 7, 12, 15, 1000], //0
+  [2, 5, 19, 31, 32, 1001], // 1
+  [3, 8, 24, 33, 35, 1002], // 
+  [40, 41, 42, 44,45, 1003],
+  [99, 100, 103, 106, 128, 1004],
+], 44));
+
+/*
+ * Complete the 'counts' function below.
+ *
+ * The function is expected to return an INTEGER_ARRAY.
+ * The function accepts following parameters:
+ *  1. INTEGER_ARRAY teamA
+ *  2. INTEGER_ARRAY teamB
+ */
+
+function counts(teamA, teamB) {
+  // Write your code here
+  
+  /**
+   * compare each elm of teamA with teamB's
+   * if teamA's elm is less than teamB's,
+   * increment the counter(initially 0) and 
+   * keep on increasing untill teamA's elm is greater than teamB's.
+   * and then move to next match of teamB and 
+   * start comparing it from TeamA's starting elm
+   */
+  let result = [];
+  teamA = teamA.sort((goal1, goal2) => goal1 - goal2);
+  for (let i = 0; i < teamB.length; i++) {
+      let start = 0;
+      let end = teamA.length - 1;
+      while (start <= end) {
+          let middle = Math.floor((end+start)/2);
+          if (teamA[middle] > teamB[i]) { 
+              end = middle - 1;
+          } else {
+              start = middle + 1;
+          }
+      }
+      result.push(start);
+  }
+  return result;
+}
+
 var arr = [
   {
     group: 'odd',
